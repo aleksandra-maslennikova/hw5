@@ -74,38 +74,41 @@ console.log(capMe(arrNames));
   
 
  let arr2 = [1,3,5,9];
+ let arr3 = [0,8,16,32];
+ let arr4 =[4,6,8,10];
  function findSkippedNumber(arr){
-    let skippedNumber;
-    if (arr[0] != 1) {
-        return skippedNumber = 1;
-    }
-    for(let i = 0; i < arr.length; i++){
-        if(arr[i] + 2 != arr[i+1]) {
-            skippedNumber = arr[i]+2;
-            break;
+    let temp, step, index, skippedNumber;
+    let tempArr =[];
+    for(let i = 0; i < arr.length-1; i++){
+        temp = arr[i+1] - arr[i];
+        tempArr.push(temp);
         }
+        for(let i = 0; i < tempArr.length-1; i++){
+            if (tempArr[i] == tempArr[i+1]){
+                step = tempArr[i];
+                continue
+            }
+             if (tempArr[i] > tempArr[i+1]){
+                step = tempArr[i+1];
+                index = i;
+            }
+            else
+            {
+                step = tempArr[i];
+                index = i+1;
+            }
+        }
+        if(typeof index == 'undefined' && arr[0] - step > 0){
+            return skippedNumber= arr[0] - step;
+        }
+        if(typeof index == 'undefined' && arr[0] - step < 0){
+            return skippedNumber= arr[arr.length-1] + step;
+        }
+        return skippedNumber = arr[index]+step;
     }
-    return skippedNumber;
-}
 
 console.log(findSkippedNumber(arr2));
-
+console.log(findSkippedNumber(arr3));
+console.log(findSkippedNumber(arr4));
 //----------------------------------
-
-let arr3 = [0,8,16,32];
-
-function findSkippedNumber1(arr){
-    let skippedNumber1;
-    if (arr[0] != 0){
-        return skippedNumber1 = 0;
-    } 
-     for(let i = 0; i < arr.length; i++){
-        if(arr[i+1] - 8 != arr[i]) {
-            skippedNumber1 = arr[i] + 8;
-            break;
-        }
-    }
-    return skippedNumber1;
-}
-console.log(findSkippedNumber1(arr3));
 
