@@ -98,10 +98,10 @@ console.log(capMe(arrNames));
                 index = i+1;
             }
         }
-        if(typeof index == 'undefined' && arr[0] - step > 0){
+        if(!index && arr[0] - step > 0){
             return skippedNumber= arr[0] - step;
         }
-        if(typeof index == 'undefined' && arr[0] - step < 0){
+        if(!index && arr[0] - step < 0){
             return skippedNumber= arr[arr.length-1] + step;
         }
         return skippedNumber = arr[index]+step;
@@ -112,3 +112,30 @@ console.log(findSkippedNumber(arr3));
 console.log(findSkippedNumber(arr4));
 //----------------------------------
 
+/*
+ 2. Напишите функция которая преобразовывает открывает скобки всех вложенных внутри массивов
+    Необходимо реализовать рекурсивный фызов функции.
+    Функция должна открывать любое количество внутренних массивов
+   
+   example:
+    [[1,2],[3,[4]],5, 10] => [1,2,3,4,5,10]
+    [25,10,[10,[15]]] => [25,10,10,15]
+ 
+ */
+
+let arr5 = [[1,2],[3,[4]],5, 10];
+
+function openBrackets(arr, item){
+    //debugger;
+    if(item.constructor === Array){
+        for(let i = 0; i < item.length; i++){
+            arr.concat(openBrackets(arr, item[i]));
+        }
+    }
+    else{
+        arr.push(item)
+    }   
+    return arr;
+}
+
+console.log(openBrackets([],arr5));
